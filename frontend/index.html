@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>AI Music Copyright Checker</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🎵 AI Music Copyright Checker</h1>
+        <p class="subtitle">Upload a song and get copyright & licensing clarity.</p>
+
+        <!-- Upload Section -->
+        <div class="upload-box">
+            <input type="file" id="audioFile" accept="audio/*" />
+            <button id="analyzeBtn">Analyze Audio</button>
+        </div>
+
+        <!-- Status -->
+        <div id="status" class="status hidden">
+            Listening to the audio… 🔊
+        </div>
+
+        <!-- Result Section -->
+        <div id="result" class="result hidden">
+
+            <h2>Result</h2>
+
+            <!-- Basic Metadata -->
+            <div class="card">
+                <p><strong>Title:</strong> <span id="title"></span></p>
+                <p><strong>Artist:</strong> <span id="artists"></span></p>
+                <p><strong>Confidence:</strong> <span id="confidence"></span></p>
+            </div>
+
+            <!-- Status Summary -->
+            <div class="card">
+                <p><strong>Copyright Status:</strong>
+                    <span id="copyrightLabel"></span>
+                </p>
+                <p id="summary" class="summary"></p>
+            </div>
+
+            <!-- Official PRO Links -->
+            <div class="card">
+                <h3>🔗 Official PRO Search Links</h3>
+                <a id="bmiLink" target="_blank">BMI</a> |
+                <a id="ascapLink" target="_blank">ASCAP</a> |
+                <a id="socanLink" target="_blank">SOCAN</a>
+            </div>
+
+            <!-- Detailed Copyright & Licensing Info -->
+            <div class="card">
+                <h3>📜 Copyright & Licensing Details</h3>
+
+                <!-- Publishers -->
+                <p><strong>Publishers:</strong></p>
+                <ul id="publishersList"></ul>
+
+                <!-- Master Rights -->
+                <p><strong>Master Rights Holders (Label):</strong></p>
+                <ul id="mastersList"></ul>
+
+                <!-- PROs -->
+                <p><strong>Performing Rights Organizations (PROs):</strong></p>
+                <ul id="prosList"></ul>
+
+                <!-- Composition Licensing -->
+                <p><strong>Composition Licensing Paths:</strong></p>
+                <ul id="compositionLicenses"></ul>
+
+                <!-- Master Recording Licensing -->
+                <p><strong>Master Recording Licensing Paths:</strong></p>
+                <ul id="masterLicenses"></ul>
+
+                <!-- Source Links -->
+                <p><strong>Source Links:</strong></p>
+                <ul id="sourcesList"></ul>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
