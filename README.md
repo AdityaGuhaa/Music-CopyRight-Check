@@ -1,12 +1,13 @@
-#Frontend
+### Frontend
 <img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-22-01" src="https://github.com/user-attachments/assets/363135f5-dd9b-4a9d-8bf0-26a040b1ba55" />
 <img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-22-07" src="https://github.com/user-attachments/assets/a9df44e1-1784-453b-9ac3-4af553747ead" />
 
-#Backend
-<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-29-04" src="https://github.com/user-attachments/assets/18285a0a-1e7b-41b6-8a13-654fc655f79f" />
+### Backend
+<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-33-40" src="https://github.com/user-attachments/assets/e5c49cec-9009-455a-a7ea-1bb5ba6e685c" />
 
-<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-29-14" src="https://github.com/user-attachments/assets/87b2e125-b72d-4837-b8ab-a38e3e3387c1" />
-<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-29-19" src="https://github.com/user-attachments/assets/4068f6d9-7313-4819-bd56-01878228bf93" />
+<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-33-20" src="https://github.com/user-attachments/assets/e4a5aff9-7539-4207-be38-4530f510180c" />
+<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-33-30" src="https://github.com/user-attachments/assets/3f64c047-18f5-40f9-a3fa-0fe5738db4cb" />
+
 
 # 🎵 AI Music Copyright Checker
 
