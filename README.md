@@ -1,65 +1,82 @@
-🎵 AI Music Copyright Checker
+#Frontend
+<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-22-01" src="https://github.com/user-attachments/assets/363135f5-dd9b-4a9d-8bf0-26a040b1ba55" />
+<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-22-07" src="https://github.com/user-attachments/assets/a9df44e1-1784-453b-9ac3-4af553747ead" />
 
-An end-to-end prototype that identifies a song from an uploaded audio file and returns copyright ownership, performing rights organizations, and licensing paths using a combination of audio fingerprinting (ACRCloud) and Large Language Models (Google Gemini).
+#Backend
+<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-29-04" src="https://github.com/user-attachments/assets/18285a0a-1e7b-41b6-8a13-654fc655f79f" />
 
-This project demonstrates how modern AI systems can be combined with classical music recognition APIs to build a practical copyright intelligence tool for creators, developers, and platforms.
+<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-29-14" src="https://github.com/user-attachments/assets/87b2e125-b72d-4837-b8ab-a38e3e3387c1" />
+<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-29-19" src="https://github.com/user-attachments/assets/4068f6d9-7313-4819-bd56-01878228bf93" />
 
-⸻
+# 🎵 AI Music Copyright Checker
 
-🚀 What This Project Does
-	1.	User uploads an audio file (MP3, WAV, etc.) from the browser.
-	2.	Backend sends the audio to ACRCloud for music recognition.
-	3.	Once the track is identified, metadata is sent to Google Gemini.
-	4.	Gemini returns structured JSON containing:
-	•	Composition publishers
-	•	Master recording rights holders (labels)
-	•	Performing Rights Organizations (PROs)
-	•	Where licenses can be obtained
-	•	Source links
-	5.	Backend normalizes this data into a stable schema.
-	6.	Frontend renders a clean, human-readable copyright & licensing report.
+An end‑to‑end prototype that identifies a song from an uploaded audio file and returns **copyright ownership, performing rights organizations, and licensing paths** using a combination of audio fingerprinting (ACRCloud) and Large Language Models (Google Gemini).
+
+This project demonstrates how modern AI systems can be combined with classical music recognition APIs to build a **practical copyright intelligence tool** for creators, developers, and platforms.
+
+---
+
+## 🚀 What This Project Does
+
+1. User uploads an audio file (MP3, WAV, etc.) from the browser.
+2. Backend sends the audio to **ACRCloud** for music recognition.
+3. Once the track is identified, metadata is sent to **Google Gemini**.
+4. Gemini returns structured JSON containing:
+
+   * Composition publishers
+   * Master recording rights holders (labels)
+   * Performing Rights Organizations (PROs)
+   * Where licenses can be obtained
+   * Source links
+5. Backend normalizes this data into a stable schema.
+6. Frontend renders a clean, human‑readable copyright & licensing report.
 
 In short:
 
-🎧 Audio → 🔍 ACRCloud → 🧠 Gemini → 📜 Structured Copyright Report
+> 🎧 Audio → 🔍 ACRCloud → 🧠 Gemini → 📜 Structured Copyright Report
 
-⸻
+---
 
-🧠 Core Ideas & Approach
+## 🧠 Core Ideas & Approach
 
 This project was designed around three key principles:
 
-1. Separation of Concerns
-	•	ACRCloud is responsible only for identifying the song.
-	•	Gemini is responsible only for researching copyright & licensing.
-	•	The backend is responsible for:
-	•	Cleaning LLM output
-	•	Enforcing a fixed schema
-	•	Never crashing on bad AI output
+### 1. Separation of Concerns
 
-2. Defensive AI Engineering
+* **ACRCloud** is responsible only for *identifying the song*.
+* **Gemini** is responsible only for *researching copyright & licensing*.
+* The backend is responsible for:
 
-LLMs are unpredictable. To make this production-safe, the backend:
-	•	Removes markdown fences from Gemini output
-	•	Handles:
-	•	Empty responses
-	•	Invalid JSON
-	•	JSON-as-string
-	•	Wrong data types
-	•	Enforces a stable output schema for the frontend
+  * Cleaning LLM output
+  * Enforcing a fixed schema
+  * Never crashing on bad AI output
+
+### 2. Defensive AI Engineering
+
+LLMs are unpredictable. To make this production‑safe, the backend:
+
+* Removes markdown fences from Gemini output
+* Handles:
+
+  * Empty responses
+  * Invalid JSON
+  * JSON‑as‑string
+  * Wrong data types
+* Enforces a **stable output schema** for the frontend
 
 This ensures:
 
-❌ The backend never crashes
-❌ The frontend never breaks
-✅ The API always returns valid JSON
+> ❌ The backend never crashes
+> ❌ The frontend never breaks
+> ✅ The API always returns valid JSON
 
-3. Stable Frontend Contract
+### 3. Stable Frontend Contract
 
-The frontend does not depend on Gemini’s raw output.
+The frontend does **not depend on Gemini’s raw output**.
 
 Instead, it consumes a normalized schema:
 
+```json
 {
   "publisher": ["..."],
   "master_rights_holder": ["..."],
@@ -70,13 +87,15 @@ Instead, it consumes a normalized schema:
   },
   "source_links": ["..."]
 }
+```
 
 This makes the UI stable even if Gemini changes its formatting.
 
-⸻
+---
 
-🏗️ System Architecture
+## 🏗️ System Architecture
 
+```
 Browser (index.html + app.js)
         │
         ▼
@@ -91,30 +110,34 @@ Browser (index.html + app.js)
                 │
                 ▼
           Frontend UI
+```
 
+---
 
-⸻
+## 🛠️ Tech Stack
 
-🛠️ Tech Stack
+### Backend
 
-Backend
-	•	Python 3.10+
-	•	FastAPI – REST API framework
-	•	ACRCloud API – Music recognition
-	•	Google Generative AI (Gemini) – Copyright research
-	•	python-dotenv – Environment variable management
+* **Python 3.10+**
+* **FastAPI** – REST API framework
+* **ACRCloud API** – Music recognition
+* **Google Generative AI (Gemini)** – Copyright research
+* **python-dotenv** – Environment variable management
 
-Frontend
-	•	HTML / CSS / Vanilla JavaScript
-	•	Fetch API for file upload & API calls
+### Frontend
 
-AI Model
-	•	gemini-2.5-flash
+* **HTML / CSS / Vanilla JavaScript**
+* Fetch API for file upload & API calls
 
-⸻
+### AI Model
 
-📁 Project Structure
+* `gemini-2.5-flash`
 
+---
+
+## 📁 Project Structure
+
+```
 music-cr-checker/
 │
 ├── main.py               # FastAPI backend
@@ -127,65 +150,81 @@ music-cr-checker/
 │
 ├── .env                 # API keys (not committed)
 └── README.md
+```
 
+---
 
-⸻
+## ⚙️ Setup Instructions
 
-⚙️ Setup Instructions
+### 1. Clone the Repository
 
-1. Clone the Repository
-
+```bash
 git clone https://github.com/your-username/music-cr-checker.git
 cd music-cr-checker
+```
 
-2. Create Virtual Environment
+### 2. Create Virtual Environment
 
+```bash
 python -m venv venv
 source venv/bin/activate   # Linux / macOS
 venv\Scripts\activate      # Windows
+```
 
-3. Install Dependencies
+### 3. Install Dependencies
 
+```bash
 pip install fastapi uvicorn python-dotenv google-generativeai requests
+```
 
-4. Set Environment Variables
+### 4. Set Environment Variables
 
-Create a .env file:
+Create a `.env` file:
 
+```env
 ACRCLOUD_ACCESS_KEY=your_acrcloud_key
 ACRCLOUD_SECRET_KEY=your_acrcloud_secret
 ACRCLOUD_HOST=your_acrcloud_host
 
 GEMINI_API_KEY=your_gemini_api_key
+```
 
-5. Run Backend
+### 5. Run Backend
 
+```bash
 uvicorn main:app --reload
+```
 
 Backend will run at:
 
+```
 http://127.0.0.1:8000
+```
 
-6. Run Frontend
+### 6. Run Frontend
 
 Simply open:
 
+```
 index.html
+```
 
 in your browser (or serve via a simple HTTP server).
 
-⸻
+---
 
-🔌 API Endpoint
+## 🔌 API Endpoint
 
-POST /analyze-audio
+### POST `/analyze-audio`
 
-Request:
-	•	multipart/form-data
-	•	Field: file → audio file
+**Request:**
 
-Response (simplified):
+* `multipart/form-data`
+* Field: `file` → audio file
 
+**Response (simplified):**
+
+```json
 {
   "success": true,
   "title": "No Pole",
@@ -203,98 +242,108 @@ Response (simplified):
     "source_links": [...]
   }
 }
+```
 
+---
 
-⸻
+## 🧩 Key Engineering Challenges Solved
 
-🧩 Key Engineering Challenges Solved
-
-1. Unstable LLM Output
+### 1. Unstable LLM Output
 
 Gemini can return:
-	•	Markdown-wrapped JSON
-	•	Invalid JSON
-	•	JSON as a string
-	•	Explanations instead of data
+
+* Markdown‑wrapped JSON
+* Invalid JSON
+* JSON as a string
+* Explanations instead of data
 
 Solution:
-	•	Strip markdown fences
-	•	Use safe_json_loads
-	•	Enforce dict type
-	•	Controlled fallback on failure
 
-2. Schema Normalization
+* Strip markdown fences
+* Use `safe_json_loads`
+* Enforce `dict` type
+* Controlled fallback on failure
+
+### 2. Schema Normalization
 
 Gemini may return:
-	•	publisher as string, list, or list of objects
-	•	Same for pros, master_rights_holder
+
+* `publisher` as string, list, or list of objects
+* Same for `pros`, `master_rights_holder`
 
 Solution:
-	•	Flatten everything into list[str]
-	•	Frontend consumes only normalized data
 
-3. Future-Dated & Unknown Songs
+* Flatten everything into `list[str]`
+* Frontend consumes only normalized data
+
+### 3. Future‑Dated & Unknown Songs
 
 For unreleased or new songs:
-	•	Gemini returns empty lists
-	•	Backend still returns valid JSON
-	•	UI shows “Not available” instead of breaking
 
-⸻
+* Gemini returns empty lists
+* Backend still returns valid JSON
+* UI shows “Not available” instead of breaking
 
-🧪 Example Results
+---
+
+## 🧪 Example Results
 
 The system works for:
-	•	Popular released tracks
-	•	Newly released tracks
-	•	Future-dated / unreleased tracks
+
+* Popular released tracks
+* Newly released tracks
+* Future‑dated / unreleased tracks
 
 With graceful degradation when data is unavailable.
 
-⸻
+---
 
-⚠️ Limitations
-	•	This is a research & prototype tool, not a legal authority.
-	•	Licensing information may change over time.
-	•	Some songs may have incomplete public data.
-	•	Accuracy depends on:
-	•	ACRCloud recognition
-	•	Public availability of rights data
-	•	LLM interpretation
+## ⚠️ Limitations
 
-⸻
+* This is a **research & prototype tool**, not a legal authority.
+* Licensing information may change over time.
+* Some songs may have incomplete public data.
+* Accuracy depends on:
 
-🔮 Future Improvements
+  * ACRCloud recognition
+  * Public availability of rights data
+  * LLM interpretation
+
+---
+
+## 🔮 Future Improvements
 
 Planned extensions:
-	•	Add copyright_status classification
-	•	Add confidence scoring for rights certainty
-	•	Add PDF / JSON export of reports
-	•	Add database logging
-	•	Add authentication & rate limiting
-	•	Dockerize for deployment
-	•	Deploy on cloud (Render / Railway / Fly.io)
 
-⸻
+* Add `copyright_status` classification
+* Add confidence scoring for rights certainty
+* Add PDF / JSON export of reports
+* Add database logging
+* Add authentication & rate limiting
+* Dockerize for deployment
+* Deploy on cloud (Render / Railway / Fly.io)
 
-👨‍💻 Author
+---
 
-Aditya Guha
+## 👨‍💻 Author
+
+**Aditya Guha**
 AI & Machine Learning Enthusiast
 Computer Science Engineering
 
-This project was built as a fast-paced prototype to demonstrate:
-	•	Real-world AI integration
-	•	Defensive LLM engineering
-	•	Clean API & frontend contracts
+This project was built as a fast‑paced prototype to demonstrate:
 
-⸻
+* Real‑world AI integration
+* Defensive LLM engineering
+* Clean API & frontend contracts
 
-📜 License
+---
+
+## 📜 License
 
 This project is for educational and research purposes.
 No legal liability is assumed for the use of copyright information.
 
-⸻
+---
 
 If you find this project useful, feel free to ⭐ star the repository and explore further improvements.
