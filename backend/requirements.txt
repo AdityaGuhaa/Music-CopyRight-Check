@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+pydantic
+acrcloud
+ffmpeg-python
+pydub
+google-generativeai
+requests
+python-dotenv
