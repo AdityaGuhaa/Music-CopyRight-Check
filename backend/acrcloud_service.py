@@ -5,7 +5,7 @@ import os
 # Debug prints (keep for now)
 print("ACR HOST:", os.getenv("ACRCLOUD_HOST"))
 print("ACR KEY:", os.getenv("ACRCLOUD_KEY"))
-print("ACR SECRET:", os.getenv("ACRCLOUD_SECRET"))
+print("ACR credentials loaded")
 
 config = {
     'host': os.getenv("ACRCLOUD_HOST"),
