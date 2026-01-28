@@ -1,6 +1,8 @@
 ### Frontend
-<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-22-01" src="https://github.com/user-attachments/assets/363135f5-dd9b-4a9d-8bf0-26a040b1ba55" />
-<img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-22-07" src="https://github.com/user-attachments/assets/a9df44e1-1784-453b-9ac3-4af553747ead" />
+<img width="1920" height="1080" alt="Screenshot from 2026-01-28 11-30-02" src="https://github.com/user-attachments/assets/c66388fa-a12a-44e0-8a98-76bfd4390ec2" />
+<img width="1920" height="1080" alt="Screenshot from 2026-01-28 11-30-59" src="https://github.com/user-attachments/assets/803edb1d-8e3d-4131-a4fd-7280a12e1c1e" />
+<img width="1920" height="1080" alt="Screenshot from 2026-01-28 11-31-14" src="https://github.com/user-attachments/assets/b898c4fb-680e-418b-952d-5a9048fc3f0e" />
+
 
 ### Backend
 <img width="1920" height="1080" alt="Screenshot from 2026-01-25 03-33-40" src="https://github.com/user-attachments/assets/e5c49cec-9009-455a-a7ea-1bb5ba6e685c" />
