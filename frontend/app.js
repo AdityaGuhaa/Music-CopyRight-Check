@@ -1,170 +1,132 @@
-const analyzeBtn = document.getElementById("analyzeBtn");
-const audioInput = document.getElementById("audioFile");
+document.addEventListener("DOMContentLoaded", () => {
 
-const statusDiv = document.getElementById("status");
-const resultDiv = document.getElementById("result");
+    const analyzeBtn = document.getElementById("analyzeBtn");
+    const fileInput = document.getElementById("audioFile");
+    const statusDiv = document.getElementById("status");
+    const resultDiv = document.getElementById("result");
 
-analyzeBtn.addEventListener("click", async () => {
-    const file = audioInput.files[0];
-
-    if (!file) {
-        alert("Please select an audio file first.");
+    if (!analyzeBtn || !fileInput || !statusDiv || !resultDiv) {
+        console.error("Critical DOM elements not found. Check index.html IDs.");
         return;
     }
 
-    // Reset UI
-    resultDiv.classList.add("hidden");
-    statusDiv.classList.remove("hidden");
-    statusDiv.textContent = "Listening to the audio… 🔊";
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-        const response = await fetch("http://127.0.0.1:8000/analyze-audio", {
-            method: "POST",
-            body: formData
-        });
-
-        if (!response.ok) {
-            throw new Error("Server returned " + response.status);
-        }
-
-        const data = await response.json();
-
-        statusDiv.classList.add("hidden");
-
-        if (!data.success) {
-            alert(data.message || "Song could not be recognized.");
+    analyzeBtn.addEventListener("click", async () => {
+        if (!fileInput.files.length) {
+            alert("Please select an audio file first.");
             return;
         }
 
-        // ===== Fill Basic Metadata =====
-        document.getElementById("title").textContent = data.title || "Unknown";
-        document.getElementById("artists").textContent = (data.artists || []).join(", ");
-        document.getElementById("confidence").textContent =
-            data.confidence_score !== undefined ? data.confidence_score : "N/A";
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
 
-        // ===== Copyright Label =====
-        document.getElementById("copyrightLabel").textContent =
-            "Copyright details available below";
+        statusDiv.classList.remove("hidden");
+        statusDiv.textContent = "Listening to the audio… 🔊";
+        resultDiv.classList.add("hidden");
 
-        // ===== Official PRO Links =====
-        if (data.official_search_links) {
-            const bmiLink = document.getElementById("bmiLink");
-            const ascapLink = document.getElementById("ascapLink");
-            const socanLink = document.getElementById("socanLink");
+        analyzeBtn.disabled = true;
+        analyzeBtn.textContent = "Analyzing...";
 
-            bmiLink.href = data.official_search_links.bmi;
-            ascapLink.href = data.official_search_links.ascap;
-            socanLink.href = data.official_search_links.socan;
+        try {
+            const response = await fetch("http://127.0.0.1:8000/analyze-audio", {
+                method: "POST",
+                body: formData
+            });
 
-            bmiLink.style.display = "inline";
-            ascapLink.style.display = "inline";
-            socanLink.style.display = "inline";
-        }
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(`Server error: ${response.status} - ${text}`);
+            }
 
-        // ===== Detailed Copyright & Licensing Info =====
-        const report = data.copyright_report || {};
+            const data = await response.json();
+            console.log("API Response:", data);
 
-        // ---------- Publishers ----------
-        const publishersList = document.getElementById("publishersList");
-        publishersList.innerHTML = "";
+            if (!data.success) {
+                throw new Error("Analysis failed on backend");
+            }
 
-        if (Array.isArray(report.publisher) && report.publisher.length > 0) {
-            report.publisher.forEach(p => {
+            // Basic info
+            document.getElementById("title").textContent = data.title || "-";
+            document.getElementById("artists").textContent = (data.artists || []).join(", ");
+            document.getElementById("confidence").textContent = data.confidence_score + "%";
+
+            // Summary
+            document.getElementById("copyrightLabel").textContent = "Copyrighted";
+            document.getElementById("summary").textContent =
+                "This track is registered with official rights organizations and requires proper licensing.";
+
+            // PRO links
+            document.getElementById("bmiLink").href = data.official_search_links.bmi;
+            document.getElementById("ascapLink").href = data.official_search_links.ascap;
+            document.getElementById("socanLink").href = data.official_search_links.socan;
+
+            // Utility to clear lists
+            const clear = (id) => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = "";
+            };
+
+            clear("publishersList");
+            clear("mastersList");
+            clear("prosList");
+            clear("compositionLicenses");
+            clear("masterLicenses");
+            clear("sourcesList");
+
+            // Fill lists
+            (data.copyright_report.publisher || []).forEach(p => {
                 const li = document.createElement("li");
                 li.textContent = p;
-                publishersList.appendChild(li);
+                document.getElementById("publishersList").appendChild(li);
             });
-        } else {
-            publishersList.innerHTML = "<li>Not available</li>";
-        }
 
-        // ---------- Master Rights Holders ----------
-        const mastersList = document.getElementById("mastersList");
-        mastersList.innerHTML = "";
-
-        if (Array.isArray(report.master_rights_holder) && report.master_rights_holder.length > 0) {
-            report.master_rights_holder.forEach(m => {
+            (data.copyright_report.master_rights_holder || []).forEach(m => {
                 const li = document.createElement("li");
                 li.textContent = m;
-                mastersList.appendChild(li);
+                document.getElementById("mastersList").appendChild(li);
             });
-        } else {
-            mastersList.innerHTML = "<li>Not available</li>";
-        }
 
-        // ---------- PROs ----------
-        const prosList = document.getElementById("prosList");
-        prosList.innerHTML = "";
-
-        if (Array.isArray(report.pros) && report.pros.length > 0) {
-            report.pros.forEach(p => {
+            (data.copyright_report.pros || []).forEach(p => {
                 const li = document.createElement("li");
                 li.textContent = p;
-                prosList.appendChild(li);
+                document.getElementById("prosList").appendChild(li);
             });
-        } else {
-            prosList.innerHTML = "<li>Not available</li>";
-        }
 
-        // ---------- Composition Licensing Paths ----------
-        const compositionList = document.getElementById("compositionLicenses");
-        compositionList.innerHTML = "";
-
-        if (
-            report.licensing_paths &&
-            Array.isArray(report.licensing_paths.composition) &&
-            report.licensing_paths.composition.length > 0
-        ) {
-            report.licensing_paths.composition.forEach(item => {
+            (data.copyright_report.licensing_paths.composition || []).forEach(c => {
                 const li = document.createElement("li");
-                li.textContent = item;
-                compositionList.appendChild(li);
+                li.textContent = c;
+                document.getElementById("compositionLicenses").appendChild(li);
             });
-        } else {
-            compositionList.innerHTML = "<li>Not available</li>";
-        }
 
-        // ---------- Master Recording Licensing Paths ----------
-        const masterLicensesList = document.getElementById("masterLicenses");
-        masterLicensesList.innerHTML = "";
-
-        if (
-            report.licensing_paths &&
-            Array.isArray(report.licensing_paths.master_recording) &&
-            report.licensing_paths.master_recording.length > 0
-        ) {
-            report.licensing_paths.master_recording.forEach(item => {
+            (data.copyright_report.licensing_paths.master_recording || []).forEach(m => {
                 const li = document.createElement("li");
-                li.textContent = item;
-                masterLicensesList.appendChild(li);
+                li.textContent = m;
+                document.getElementById("masterLicenses").appendChild(li);
             });
-        } else {
-            masterLicensesList.innerHTML = "<li>Not available</li>";
-        }
 
-        // ---------- Source Links ----------
-        const sourcesList = document.getElementById("sourcesList");
-        sourcesList.innerHTML = "";
-
-        if (Array.isArray(report.source_links) && report.source_links.length > 0) {
-            report.source_links.forEach(src => {
+            (data.copyright_report.source_links || []).forEach(s => {
                 const li = document.createElement("li");
-                li.textContent = src;
-                sourcesList.appendChild(li);
+                const a = document.createElement("a");
+                a.href = s;
+                a.target = "_blank";
+                a.textContent = s;
+                li.appendChild(a);
+                document.getElementById("sourcesList").appendChild(li);
             });
-        } else {
-            sourcesList.innerHTML = "<li>Not available</li>";
+
+            statusDiv.classList.add("hidden");
+            resultDiv.classList.remove("hidden");
+
+            // Auto-scroll to report
+            resultDiv.scrollIntoView({ behavior: "smooth" });
+
+        } catch (err) {
+            console.error("Frontend error:", err);
+            statusDiv.textContent = "❌ Error: " + err.message;
+        } finally {
+            analyzeBtn.disabled = false;
+            analyzeBtn.textContent = "Analyze →";
         }
+    });
 
-        // ===== Show result =====
-        resultDiv.classList.remove("hidden");
-
-    } catch (err) {
-        console.error("Analyze error:", err);
-        alert("Error connecting to backend. Is FastAPI running?");
-        statusDiv.classList.add("hidden");
-    }
 });

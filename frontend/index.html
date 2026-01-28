@@ -5,18 +5,41 @@
     <meta charset="UTF-8" />
     <title>AI Music Copyright Checker</title>
     <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
 
-    <div class="container">
-        <h1>🎵 AI Music Copyright Checker</h1>
-        <p class="subtitle">Upload a song and get copyright & licensing clarity.</p>
+    <div class="page">
 
-        <!-- Upload Section -->
-        <div class="upload-box">
-            <input type="file" id="audioFile" accept="audio/*" />
-            <button id="analyzeBtn">Analyze Audio</button>
+        <!-- Greeting -->
+        <h1 class="greeting">
+            ☀️ Good morning, <span class="name">Handsome</span>
+        </h1>
+
+        <!-- Upload Card -->
+        <div class="card upload-card">
+
+            <p class="helper-text">
+                Upload an audio file to analyze its copyright status
+            </p>
+
+            <!-- Hidden File Input -->
+            <input type="file" id="audioFile" accept="audio/*" hidden />
+
+            <!-- Buttons Row -->
+            <div class="button-row">
+                <button id="chooseBtn" class="secondary-btn" type="button">
+                    Choose Audio
+                </button>
+
+                <button id="analyzeBtn" class="primary-btn" type="button">
+                    Analyze →
+                </button>
+            </div>
+
+            <!-- Selected file name -->
+            <p id="fileName" class="file-name">No file selected</p>
         </div>
 
         <!-- Status -->
@@ -27,64 +50,87 @@
         <!-- Result Section -->
         <div id="result" class="result hidden">
 
-            <h2>Result</h2>
+            <!-- Report Header -->
+            <h2 class="report-title">🎯 Analysis Report</h2>
+            <p class="report-subtitle">
+                Detailed copyright & licensing information detected by AI
+            </p>
 
-            <!-- Basic Metadata -->
+            <!-- Track Info -->
             <div class="card">
                 <p><strong>Title:</strong> <span id="title"></span></p>
                 <p><strong>Artist:</strong> <span id="artists"></span></p>
                 <p><strong>Confidence:</strong> <span id="confidence"></span></p>
             </div>
 
-            <!-- Status Summary -->
+            <!-- Copyright Summary -->
             <div class="card">
-                <p><strong>Copyright Status:</strong>
-                    <span id="copyrightLabel"></span>
-                </p>
-                <p id="summary" class="summary"></p>
+                <p><strong>Status:</strong> <span id="copyrightLabel"></span></p>
+                <p id="summary"></p>
             </div>
 
-            <!-- Official PRO Links -->
+            <!-- PRO Links -->
             <div class="card">
-                <h3>🔗 Official PRO Search Links</h3>
                 <a id="bmiLink" target="_blank">BMI</a> |
                 <a id="ascapLink" target="_blank">ASCAP</a> |
                 <a id="socanLink" target="_blank">SOCAN</a>
             </div>
 
-            <!-- Detailed Copyright & Licensing Info -->
+            <!-- Detailed Info -->
             <div class="card">
-                <h3>📜 Copyright & Licensing Details</h3>
-
-                <!-- Publishers -->
                 <p><strong>Publishers:</strong></p>
                 <ul id="publishersList"></ul>
 
-                <!-- Master Rights -->
-                <p><strong>Master Rights Holders (Label):</strong></p>
+                <p><strong>Master Rights Holders:</strong></p>
                 <ul id="mastersList"></ul>
 
-                <!-- PROs -->
-                <p><strong>Performing Rights Organizations (PROs):</strong></p>
+                <p><strong>PROs:</strong></p>
                 <ul id="prosList"></ul>
 
-                <!-- Composition Licensing -->
-                <p><strong>Composition Licensing Paths:</strong></p>
+                <p><strong>Composition Licensing:</strong></p>
                 <ul id="compositionLicenses"></ul>
 
-                <!-- Master Recording Licensing -->
-                <p><strong>Master Recording Licensing Paths:</strong></p>
+                <p><strong>Master Recording Licensing:</strong></p>
                 <ul id="masterLicenses"></ul>
 
-                <!-- Source Links -->
                 <p><strong>Source Links:</strong></p>
                 <ul id="sourcesList"></ul>
             </div>
 
         </div>
+
     </div>
 
+    <!-- Main App Logic -->
     <script src="app.js"></script>
+
+    <!-- UI Glue Script -->
+    <script>
+        // Random greeting
+        const names = ["Handsome", "Gorgeous", "Brilliant", "Legend", "Rockstar"];
+        const nameSpan = document.querySelector(".name");
+        nameSpan.textContent = names[Math.floor(Math.random() * names.length)];
+
+        // Elements
+        const fileInput = document.getElementById("audioFile");
+        const fileName = document.getElementById("fileName");
+        const chooseBtn = document.getElementById("chooseBtn");
+
+        // Open file picker
+        chooseBtn.addEventListener("click", () => {
+            fileInput.click();
+        });
+
+        // Show selected file name
+        fileInput.addEventListener("change", () => {
+            if (fileInput.files.length > 0) {
+                fileName.textContent = fileInput.files[0].name;
+            } else {
+                fileName.textContent = "No file selected";
+            }
+        });
+    </script>
+
 </body>
 
 </html>

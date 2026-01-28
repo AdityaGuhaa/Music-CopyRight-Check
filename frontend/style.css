@@ -1,80 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+/* IMPORTANT: remove flex centering from body */
+
 body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #e5e7eb;
     margin: 0;
-    padding: 0;
+    background: #faf7f2;
+    font-family: 'Inter', sans-serif;
+    color: #2b2b2b;
 }
 
-.container {
-    max-width: 700px;
-    margin: 50px auto;
-    padding: 30px;
-    background: #020617;
-    border-radius: 10px;
-}
+/* Page container */
 
-h1 {
+.page {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 20px 80px 20px;
     text-align: center;
 }
 
-.subtitle {
-    text-align: center;
-    color: #9ca3af;
-    margin-bottom: 30px;
+/* Greeting */
+
+.greeting {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 500;
+    margin-bottom: 48px;
 }
 
-.upload-box {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
+.greeting .name {
+    font-weight: 600;
 }
 
-button {
-    padding: 10px 20px;
-    cursor: pointer;
-    background: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-
-button:hover {
-    background: #1d4ed8;
-}
-
-.status {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.hidden {
-    display: none;
-}
-
-.result {
-    margin-top: 30px;
-}
+/* Card */
 
 .card {
-    background: #020617;
-    border: 1px solid #1e293b;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 36px 32px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    max-width: 600px;
+    width: 500px;
+    margin: 0 auto 24px auto;
 }
 
-.summary {
-    margin-top: 10px;
-    font-style: italic;
+/* Helper text */
+
+.helper-text {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 24px;
+    line-height: 1.4;
 }
 
-a {
-    color: #60a5fa;
-    text-decoration: none;
+/* Buttons Row */
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 6px;
 }
 
-a:hover {
-    text-decoration: underline;
+/* Secondary button */
+
+.secondary-btn {
+    background: #f1eee9;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.secondary-btn:hover {
+    background: #e7e3dd;
+    transform: translateY(-1px);
+}
+
+/* Primary button */
+
+.primary-btn {
+    background: #e9b7a3;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.primary-btn:hover {
+    background: #e2a991;
+    transform: translateY(-1px);
+}
+
+.primary-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* File name */
+
+.file-name {
+    font-size: 13px;
+    color: #888;
+    margin-top: 14px;
+    min-height: 16px;
 }
